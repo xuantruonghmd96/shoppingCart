@@ -1,45 +1,25 @@
-<div class="container py-5">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="text-center text-white mb-4">Bootstrap 4 Login Form</h2>
-            <div class="row">
-                <div class="col-md-6 mx-auto">
-
-                    <!-- form card login -->
-                    <div class="card rounded-0">
-                        <div class="card-header">
-                            <h3 class="mb-0">Signup</h3>
-                        </div>
-                        <div class="card-body">
-                            Validation Errors
-                            <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" action="/user/signup" method="POST">
-                                <div class="form-group">
-                                    <label for="uname1">Username</label>
-                                    <input type="text" class="form-control form-control-lg rounded-0" name="uname1" id="uname" required="">
-                                    <div class="invalid-feedback">Oops, you missed this one.</div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" class="form-control form-control-lg rounded-0" id="pwd" required="" autocomplete="new-password">
-                                    <div class="invalid-feedback">Enter your password too!</div>
-                                </div>
-                                <input type="text" name="_csrf" value="{{csrfToken}}">
-                                <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Signup</button>
-                            </form>
-                        </div>
-                        <!--/card-block-->
-                    </div>
-                    <!-- /form card login -->
-
-                </div>
-
-
+<div class="row">
+    <div class="col-md-4">
+        <h1>Đăng kí</h1>
+        {{#if hasErrors}}
+            <div class="alert alert-danger">
+                {{#each messages}}
+                <p>{{this}}</p>
+                {{/each}}
             </div>
-            <!--/row-->
-
-        </div>
-        <!--/col-->
+        {{/if}}
+        <form action="/user/signup" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+            <input type=hidden name="_csrf" value="{{csrfToken}}">
+            <button type="submit" class="btn btn-success">Đăng kí</button>
+        </form>
+        
     </div>
-    <!--/row-->
 </div>
-<!--/container-->
