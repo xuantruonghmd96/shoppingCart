@@ -40,4 +40,12 @@ router.get('/user/profile', function(req, res, next) {
   res.render('user/profile');
 });
 
+// Create tables and sync to database
+var models = require('../models');
+router.get('/sync', function(req, res){
+	models.sequelize.sync().then(function(){
+		res.send('database sync completed!');
+	});
+});
+
 module.exports = router;
