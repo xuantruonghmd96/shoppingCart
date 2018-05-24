@@ -29,7 +29,7 @@ passport.use('local.signup', new LocalStrategy({
         });
         return done(null, false, req.flash('error', messages));
     }
-    
+
     models.UserPg
         .findOne({
             where: {
@@ -66,16 +66,20 @@ passport.use('local.signin', new LocalStrategy({
         });
         return done(null, false, req.flash('error', messages));
     }
-    User.findOne({ 'email': email }, function (err, user) {
-        if (err) {
-            return done(err);
-        }
-        if (!user) {
-            return done(null, false, { message: 'No user found.' });
-        }
-        if (!user.validPassword(password)) {
-            return done(null, false, { message: 'Wrong password.' })
-        }
-        return done(null, user);
-    });
+
+    models.UserPg
+        .findOne({
+            where: {
+                email: email
+            }
+        }, { raw: true })
+        .then(user => {
+            if (!user) {
+                return done(null, false, { message: 'No user found.' });
+            }
+            if (!user.validPassword(password)) {
+                return done(null, false, { message: 'Wrong password.' })
+            }
+            return done(null, user.get({ plain: true }));
+        });
 }));

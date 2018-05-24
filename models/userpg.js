@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
   };
 
-  UserPg.validPassword = function (password) {
+  UserPg.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
   };
 
