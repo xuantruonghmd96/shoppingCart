@@ -32,7 +32,7 @@ passport.use('local.signup', new LocalStrategy({
             models.UserPg
                 .create({
                     email: email,
-                    password: password
+                    password: models.UserPg.encryptPassword(password)
                 })
                 .then(newUser => {
                     return done(null, newUser.get({ plain: true }));
