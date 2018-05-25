@@ -30,6 +30,9 @@ app.use(session({
   secret: 'theBestSecretKeyInTheWorld',
   resave: false,
   saveUninitialized: false,
+  store: new (require('connect-pg-simple')(session))({
+    conString: 'pg://' + "postgres" + ':' + "1234" + '@' + "127.0.0.1" + '/' + "shoppingCart"
+  }),
   cookie: { maxAge: 180 * 60 * 1000 }
 }));
 app.use(flash());
